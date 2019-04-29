@@ -68,12 +68,12 @@
 			"request": {
 				"method": "POST",
 				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					},
+                  {
+                    "key": "Content-Type",
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
 					{
 						"key": "User-Agent",
 						"value": "postman",
@@ -924,6 +924,11 @@
 						"value": "application/json",
 						"type": "text"
 					},
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache",
+                      "type": "text"
+                    },
 					{
 						"key": "User-Agent",
 						"value": "postman",
@@ -1400,6 +1405,11 @@
 						"value": "application/json",
 						"type": "text"
 					},
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache",
+                      "type": "text"
+                    },
 					{
 						"key": "User-Agent",
 						"value": "postman",
@@ -1868,6 +1878,11 @@
 						"value": "application/json",
 						"type": "text"
 					},
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache",
+                      "type": "text"
+                    },
 					{
 						"key": "User-Agent",
 						"value": "postman",
@@ -2338,6 +2353,11 @@
 						"value": "application/json",
 						"type": "text"
 					},
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache",
+                      "type": "text"
+                    },
 					{
 						"key": "User-Agent",
 						"value": "postman",
