@@ -494,6 +494,11 @@
             "key": "X-Bunq-Geolocation",
             "value": "{{geolocation}}",
             "type": "text"
+          },
+          {
+            "key": "X-Bunq-Client-Signature",
+            "value": "{{signature}}",
+            "type": "text"
           }
         ],
         "body": {
