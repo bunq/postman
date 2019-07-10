@@ -2856,19 +2856,6 @@
         "url": "{{host}}/v1/user/{{user_id}}/event"
       },
       "response": []
-    },
-    {
-      "name": "Get cards",
-      "_postman_id": "9d654bad-8cea-4f86-994b-39809940aae0",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": ""
-      },
-      "response": []
     }
   ],
   "event": [
