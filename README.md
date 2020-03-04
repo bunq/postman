@@ -16,7 +16,7 @@ It's a project that allows you to access bunq's public API using [Postman](https
 7. Run `Create an installation`, `Add the device`, `Add a session` in that order. They will create everything needed for
    using public API, including RSA keys, session and installation tokens. For you reference all those values will be set
    in the environment.
-8. Run `Get monetary accounts` to check that everything is working properly. If it does, you can modify that request to
+8. Run `GET - List monetary accounts` to check that everything is working properly. If it does, you can modify that request to
    do whatever you wanted to do and "Save as" for you future use.
 
 ### How does it work?
