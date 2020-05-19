@@ -4660,368 +4660,7 @@
     },
     {
       "name": "Monetary accounts (sub-accounts)",
-      "item": [
-        {
-          "name": "List monetary accounts",
-          "event": [
-            {
-              "listen": "prerequest",
-              "script": {
-                "id": "9b8c1e91-b2c8-4caa-9438-53e2763095a6",
-                "exec": [
-                  ""
-                ],
-                "type": "text/javascript"
-              }
-            },
-            {
-              "listen": "test",
-              "script": {
-                "id": "ce21a778-250c-43e5-8962-1414cfd76d31",
-                "exec": [
-                  "function parse_all_response() {",
-                  "    all_response = pm.response.json().Response;",
-                  "    all_response_parsed = {};",
-                  "    ",
-                  "    Array.prototype.forEach.call(all_response, function(response_body) {",
-                  "        all_key = Object.keys(response_body);",
-                  "        pm.expect(all_key).to.have.lengthOf(1);",
-                  "        var type = all_key[0];",
-                  "",
-                  "        if (type in all_response_parsed) {",
-                  "            // array created, adding",
-                  "        } else {",
-                  "            all_response_parsed[type] = [];",
-                  "        }",
-                  "        all_response_parsed[type].push(response_body[type]);",
-                  "    });",
-                  "    ",
-                  "    return all_response_parsed;",
-                  "}",
-                  "",
-                  "pm.test(\"Response id is same as request id.\", () => {",
-                  "    pm.response.to.have.header(\"X-Bunq-Client-Request-Id\", pm.environment.get(\"request_id\"));",
-                  "});",
-                  "",
-                  "pm.test(\"Response has MonetaryAccountBank. We are setting monetary_account_id in environment variables.\", () => {",
-                  "    var all_response = parse_all_response();",
-                  "    ",
-                  "    var monetary_account_id = all_response.MonetaryAccountBank[0].id;",
-                  "    pm.expect(monetary_account_id).to.be.a('number');",
-                  "    ",
-                  "    pm.environment.set(\"monetary_account_id\", monetary_account_id);",
-                  "});",
-                  "",
-                  "// To do: check that server's signature matches server's public key",
-                  ""
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "_postman_id": "f52e4e0c-970d-40cb-bc0c-2e11f50a994d",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              },
-              {
-                "key": "Cache-Control",
-                "value": "no-cache",
-                "type": "text"
-              },
-              {
-                "key": "User-Agent",
-                "value": "postman",
-                "type": "text"
-              },
-              {
-                "key": "X-Bunq-Language",
-                "value": "en_US",
-                "type": "text"
-              },
-              {
-                "key": "X-Bunq-Region",
-                "value": "nl_NL",
-                "type": "text"
-              },
-              {
-                "key": "X-Bunq-Client-Request-Id",
-                "value": "{{request_id}}",
-                "type": "text"
-              },
-              {
-                "key": "X-Bunq-Geolocation",
-                "value": "{{geolocation}}",
-                "type": "text"
-              },
-              {
-                "key": "X-Bunq-Client-Authentication",
-                "value": "{{session_token}}",
-                "type": "text"
-              },
-              {
-                "key": "X-Bunq-Client-Signature",
-                "value": "{{signature}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": ""
-            },
-            "url": "{{host}}/v1/user/{{user_id}}/monetary-account"
-          },
-          "response": []
-        },
-        {
-          "name": "Get a monetary account",
-          "event": [
-            {
-              "listen": "prerequest",
-              "script": {
-                "id": "9b8c1e91-b2c8-4caa-9438-53e2763095a6",
-                "exec": [
-                  ""
-                ],
-                "type": "text/javascript"
-              }
-            },
-            {
-              "listen": "test",
-              "script": {
-                "id": "ce21a778-250c-43e5-8962-1414cfd76d31",
-                "exec": [
-                  "function parse_all_response() {",
-                  "    all_response = pm.response.json().Response;",
-                  "    all_response_parsed = {};",
-                  "    ",
-                  "    Array.prototype.forEach.call(all_response, function(response_body) {",
-                  "        all_key = Object.keys(response_body);",
-                  "        pm.expect(all_key).to.have.lengthOf(1);",
-                  "        var type = all_key[0];",
-                  "",
-                  "        if (type in all_response_parsed) {",
-                  "            // array created, adding",
-                  "        } else {",
-                  "            all_response_parsed[type] = [];",
-                  "        }",
-                  "        all_response_parsed[type].push(response_body[type]);",
-                  "    });",
-                  "    ",
-                  "    return all_response_parsed;",
-                  "}",
-                  "",
-                  "pm.test(\"Response id is same as request id.\", () => {",
-                  "    pm.response.to.have.header(\"X-Bunq-Client-Request-Id\", pm.environment.get(\"request_id\"));",
-                  "});",
-                  "",
-                  "pm.test(\"Response has MonetaryAccountBank. We are setting monetary_account_id in environment variables.\", () => {",
-                  "    var all_response = parse_all_response();",
-                  "    ",
-                  "    var monetary_account_id = all_response.MonetaryAccountBank[0].id;",
-                  "    pm.expect(monetary_account_id).to.be.a('number');",
-                  "    ",
-                  "    pm.environment.set(\"monetary_account_id\", monetary_account_id);",
-                  "});",
-                  "",
-                  "// To do: check that server's signature matches server's public key",
-                  ""
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "_postman_id": "6ce03fee-c476-430c-9b62-45ff5b909aa1",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              },
-              {
-                "key": "Cache-Control",
-                "value": "no-cache",
-                "type": "text"
-              },
-              {
-                "key": "User-Agent",
-                "value": "postman",
-                "type": "text"
-              },
-              {
-                "key": "X-Bunq-Language",
-                "value": "en_US",
-                "type": "text"
-              },
-              {
-                "key": "X-Bunq-Region",
-                "value": "nl_NL",
-                "type": "text"
-              },
-              {
-                "key": "X-Bunq-Client-Request-Id",
-                "value": "{{request_id}}",
-                "type": "text"
-              },
-              {
-                "key": "X-Bunq-Geolocation",
-                "value": "{{geolocation}}",
-                "type": "text"
-              },
-              {
-                "key": "X-Bunq-Client-Authentication",
-                "value": "{{session_token}}",
-                "type": "text"
-              },
-              {
-                "key": "X-Bunq-Client-Signature",
-                "value": "{{signature}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": ""
-            },
-            "url": "{{host}}/v1/user/{{user_id}}/monetary-account/{{monetary_account_id}}"
-          },
-          "response": []
-        },
-        {
-          "name": "List savings accounts",
-          "event": [
-            {
-              "listen": "prerequest",
-              "script": {
-                "id": "9b8c1e91-b2c8-4caa-9438-53e2763095a6",
-                "exec": [
-                  ""
-                ],
-                "type": "text/javascript"
-              }
-            },
-            {
-              "listen": "test",
-              "script": {
-                "id": "ce21a778-250c-43e5-8962-1414cfd76d31",
-                "exec": [
-                  "function parse_all_response() {",
-                  "    all_response = pm.response.json().Response;",
-                  "    all_response_parsed = {};",
-                  "    ",
-                  "    Array.prototype.forEach.call(all_response, function(response_body) {",
-                  "        all_key = Object.keys(response_body);",
-                  "        pm.expect(all_key).to.have.lengthOf(1);",
-                  "        var type = all_key[0];",
-                  "",
-                  "        if (type in all_response_parsed) {",
-                  "            // array created, adding",
-                  "        } else {",
-                  "            all_response_parsed[type] = [];",
-                  "        }",
-                  "        all_response_parsed[type].push(response_body[type]);",
-                  "    });",
-                  "    ",
-                  "    return all_response_parsed;",
-                  "}",
-                  "",
-                  "pm.test(\"Response id is same as request id.\", () => {",
-                  "    pm.response.to.have.header(\"X-Bunq-Client-Request-Id\", pm.environment.get(\"request_id\"));",
-                  "});",
-                  "",
-                  "pm.test(\"Response has MonetaryAccountBank. We are setting monetary_account_id in environment variables.\", () => {",
-                  "    var all_response = parse_all_response();",
-                  "    ",
-                  "    var monetary_account_id = all_response.MonetaryAccountBank[0].id;",
-                  "    pm.expect(monetary_account_id).to.be.a('number');",
-                  "    ",
-                  "    pm.environment.set(\"monetary_account_id\", monetary_account_id);",
-                  "});",
-                  "",
-                  "// To do: check that server's signature matches server's public key",
-                  ""
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "_postman_id": "ad6ef827-b5ab-44c2-8a90-be1bf9d875a2",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Content-Type",
-                "name": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              },
-              {
-                "key": "Cache-Control",
-                "value": "no-cache",
-                "type": "text"
-              },
-              {
-                "key": "User-Agent",
-                "value": "postman",
-                "type": "text"
-              },
-              {
-                "key": "X-Bunq-Language",
-                "value": "en_US",
-                "type": "text"
-              },
-              {
-                "key": "X-Bunq-Region",
-                "value": "nl_NL",
-                "type": "text"
-              },
-              {
-                "key": "X-Bunq-Client-Request-Id",
-                "value": "{{request_id}}",
-                "type": "text"
-              },
-              {
-                "key": "X-Bunq-Geolocation",
-                "value": "{{geolocation}}",
-                "type": "text"
-              },
-              {
-                "key": "X-Bunq-Client-Authentication",
-                "value": "{{session_token}}",
-                "type": "text"
-              },
-              {
-                "key": "X-Bunq-Client-Signature",
-                "value": "{{signature}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": ""
-            },
-            "url": "{{host}}/v1/user/{{user_id}}/monetary-account-savings"
-          },
-          "response": []
-        }
-      ],
+      "item": [],
       "_postman_id": "93392ac7-4ae8-41b7-ba0a-4cc49af1eadf"
     },
     {
@@ -5266,6 +4905,246 @@
       "response": []
     },
     {
+      "name": "List monetary accounts",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "id": "9b8c1e91-b2c8-4caa-9438-53e2763095a6",
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "id": "ce21a778-250c-43e5-8962-1414cfd76d31",
+            "exec": [
+              "function parse_all_response() {",
+              "    all_response = pm.response.json().Response;",
+              "    all_response_parsed = {};",
+              "    ",
+              "    Array.prototype.forEach.call(all_response, function(response_body) {",
+              "        all_key = Object.keys(response_body);",
+              "        pm.expect(all_key).to.have.lengthOf(1);",
+              "        var type = all_key[0];",
+              "",
+              "        if (type in all_response_parsed) {",
+              "            // array created, adding",
+              "        } else {",
+              "            all_response_parsed[type] = [];",
+              "        }",
+              "        all_response_parsed[type].push(response_body[type]);",
+              "    });",
+              "    ",
+              "    return all_response_parsed;",
+              "}",
+              "",
+              "pm.test(\"Response id is same as request id.\", () => {",
+              "    pm.response.to.have.header(\"X-Bunq-Client-Request-Id\", pm.environment.get(\"request_id\"));",
+              "});",
+              "",
+              "pm.test(\"Response has MonetaryAccountBank. We are setting monetary_account_id in environment variables.\", () => {",
+              "    var all_response = parse_all_response();",
+              "    ",
+              "    var monetary_account_id = all_response.MonetaryAccountBank[0].id;",
+              "    pm.expect(monetary_account_id).to.be.a('number');",
+              "    ",
+              "    pm.environment.set(\"monetary_account_id\", monetary_account_id);",
+              "});",
+              "",
+              "// To do: check that server's signature matches server's public key",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "_postman_id": "f52e4e0c-970d-40cb-bc0c-2e11f50a994d",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "no-cache",
+            "type": "text"
+          },
+          {
+            "key": "User-Agent",
+            "value": "postman",
+            "type": "text"
+          },
+          {
+            "key": "X-Bunq-Language",
+            "value": "en_US",
+            "type": "text"
+          },
+          {
+            "key": "X-Bunq-Region",
+            "value": "nl_NL",
+            "type": "text"
+          },
+          {
+            "key": "X-Bunq-Client-Request-Id",
+            "value": "{{request_id}}",
+            "type": "text"
+          },
+          {
+            "key": "X-Bunq-Geolocation",
+            "value": "{{geolocation}}",
+            "type": "text"
+          },
+          {
+            "key": "X-Bunq-Client-Authentication",
+            "value": "{{session_token}}",
+            "type": "text"
+          },
+          {
+            "key": "X-Bunq-Client-Signature",
+            "value": "{{signature}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": "{{host}}/v1/user/{{user_id}}/monetary-account"
+      },
+      "response": []
+    },
+    {
+      "name": "Get a monetary account",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "id": "9b8c1e91-b2c8-4caa-9438-53e2763095a6",
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "id": "ce21a778-250c-43e5-8962-1414cfd76d31",
+            "exec": [
+              "function parse_all_response() {",
+              "    all_response = pm.response.json().Response;",
+              "    all_response_parsed = {};",
+              "    ",
+              "    Array.prototype.forEach.call(all_response, function(response_body) {",
+              "        all_key = Object.keys(response_body);",
+              "        pm.expect(all_key).to.have.lengthOf(1);",
+              "        var type = all_key[0];",
+              "",
+              "        if (type in all_response_parsed) {",
+              "            // array created, adding",
+              "        } else {",
+              "            all_response_parsed[type] = [];",
+              "        }",
+              "        all_response_parsed[type].push(response_body[type]);",
+              "    });",
+              "    ",
+              "    return all_response_parsed;",
+              "}",
+              "",
+              "pm.test(\"Response id is same as request id.\", () => {",
+              "    pm.response.to.have.header(\"X-Bunq-Client-Request-Id\", pm.environment.get(\"request_id\"));",
+              "});",
+              "",
+              "pm.test(\"Response has MonetaryAccountBank. We are setting monetary_account_id in environment variables.\", () => {",
+              "    var all_response = parse_all_response();",
+              "    ",
+              "    var monetary_account_id = all_response.MonetaryAccountBank[0].id;",
+              "    pm.expect(monetary_account_id).to.be.a('number');",
+              "    ",
+              "    pm.environment.set(\"monetary_account_id\", monetary_account_id);",
+              "});",
+              "",
+              "// To do: check that server's signature matches server's public key",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "_postman_id": "6ce03fee-c476-430c-9b62-45ff5b909aa1",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "no-cache",
+            "type": "text"
+          },
+          {
+            "key": "User-Agent",
+            "value": "postman",
+            "type": "text"
+          },
+          {
+            "key": "X-Bunq-Language",
+            "value": "en_US",
+            "type": "text"
+          },
+          {
+            "key": "X-Bunq-Region",
+            "value": "nl_NL",
+            "type": "text"
+          },
+          {
+            "key": "X-Bunq-Client-Request-Id",
+            "value": "{{request_id}}",
+            "type": "text"
+          },
+          {
+            "key": "X-Bunq-Geolocation",
+            "value": "{{geolocation}}",
+            "type": "text"
+          },
+          {
+            "key": "X-Bunq-Client-Authentication",
+            "value": "{{session_token}}",
+            "type": "text"
+          },
+          {
+            "key": "X-Bunq-Client-Signature",
+            "value": "{{signature}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": "{{host}}/v1/user/{{user_id}}/monetary-account/{{monetary_account_id}}"
+      },
+      "response": []
+    },
+    {
       "name": "Create a monetary account",
       "event": [
         {
@@ -5382,6 +5261,126 @@
           "raw": "{\n  \"currency\": \"EUR\",\n  \"description\": \"my first test MA\",\n  \"daily_limit\": {\n    \"value\": \"100\",\n    \"currency\": \"EUR\"\n  },\n  \"status\": \"ACTIVE\",\n  \"setting\": {\n    \"default_avatar_status\": \"AVATAR_DEFAULT\",\n    \"restriction_chat\": \"ALLOW_INCOMING\"\n  }\n}"
         },
         "url": "{{host}}/v1/user/{{user_id}}/monetary-account-bank"
+      },
+      "response": []
+    },
+    {
+      "name": "List savings accounts",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "id": "9b8c1e91-b2c8-4caa-9438-53e2763095a6",
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "id": "ce21a778-250c-43e5-8962-1414cfd76d31",
+            "exec": [
+              "function parse_all_response() {",
+              "    all_response = pm.response.json().Response;",
+              "    all_response_parsed = {};",
+              "    ",
+              "    Array.prototype.forEach.call(all_response, function(response_body) {",
+              "        all_key = Object.keys(response_body);",
+              "        pm.expect(all_key).to.have.lengthOf(1);",
+              "        var type = all_key[0];",
+              "",
+              "        if (type in all_response_parsed) {",
+              "            // array created, adding",
+              "        } else {",
+              "            all_response_parsed[type] = [];",
+              "        }",
+              "        all_response_parsed[type].push(response_body[type]);",
+              "    });",
+              "    ",
+              "    return all_response_parsed;",
+              "}",
+              "",
+              "pm.test(\"Response id is same as request id.\", () => {",
+              "    pm.response.to.have.header(\"X-Bunq-Client-Request-Id\", pm.environment.get(\"request_id\"));",
+              "});",
+              "",
+              "pm.test(\"Response has MonetaryAccountBank. We are setting monetary_account_id in environment variables.\", () => {",
+              "    var all_response = parse_all_response();",
+              "    ",
+              "    var monetary_account_id = all_response.MonetaryAccountBank[0].id;",
+              "    pm.expect(monetary_account_id).to.be.a('number');",
+              "    ",
+              "    pm.environment.set(\"monetary_account_id\", monetary_account_id);",
+              "});",
+              "",
+              "// To do: check that server's signature matches server's public key",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "_postman_id": "ad6ef827-b5ab-44c2-8a90-be1bf9d875a2",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "no-cache",
+            "type": "text"
+          },
+          {
+            "key": "User-Agent",
+            "value": "postman",
+            "type": "text"
+          },
+          {
+            "key": "X-Bunq-Language",
+            "value": "en_US",
+            "type": "text"
+          },
+          {
+            "key": "X-Bunq-Region",
+            "value": "nl_NL",
+            "type": "text"
+          },
+          {
+            "key": "X-Bunq-Client-Request-Id",
+            "value": "{{request_id}}",
+            "type": "text"
+          },
+          {
+            "key": "X-Bunq-Geolocation",
+            "value": "{{geolocation}}",
+            "type": "text"
+          },
+          {
+            "key": "X-Bunq-Client-Authentication",
+            "value": "{{session_token}}",
+            "type": "text"
+          },
+          {
+            "key": "X-Bunq-Client-Signature",
+            "value": "{{signature}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": "{{host}}/v1/user/{{user_id}}/monetary-account-savings"
       },
       "response": []
     },
