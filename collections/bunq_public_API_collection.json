@@ -5265,11 +5265,6 @@
       "_postman_id": "93392ac7-4ae8-41b7-ba0a-4cc49af1eadf"
     },
     {
-      "name": "Exports and attachments",
-      "item": [],
-      "_postman_id": "ef4b723c-ce89-4256-ae1c-7d35a9b500d4"
-    },
-    {
       "name": "Get user info",
       "event": [
         {
