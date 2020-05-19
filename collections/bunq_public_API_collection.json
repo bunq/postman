@@ -4221,6 +4221,121 @@
         "url": "{{host}}/v1/user/{{user_id}}/tree-progress"
       },
       "response": []
+    },
+    {
+      "name": "Create a sandbox user (company)",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "id": "aa48aa9a-0253-4fc4-ae63-01d8cb8ef1e3",
+            "exec": [
+              "// Library: nanoid/non-secure",
+              "",
+              "var get_id=function(r){var a=\"_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\";r=r||21;for(var n=\"\";0<r--;)n+=a[Math.random()*a.length|0];return n};",
+              "",
+              "// Custom code",
+              "",
+              "pm.environment.set(\"request_id\", get_id(20));"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "id": "d926a073-a493-4a0d-9493-b9075ad0ce9a",
+            "exec": [
+              "function parse_all_response() {",
+              "    all_response = pm.response.json().Response;",
+              "    all_response_parsed = {};",
+              "    ",
+              "    Array.prototype.forEach.call(all_response, function(response_body) {",
+              "        all_key = Object.keys(response_body);",
+              "        pm.expect(all_key).to.have.lengthOf(1);",
+              "        var type = all_key[0];",
+              "",
+              "        if (type in all_response_parsed) {",
+              "            // array created, adding",
+              "        } else {",
+              "            all_response_parsed[type] = [];",
+              "        }",
+              "        all_response_parsed[type].push(response_body[type]);",
+              "    });",
+              "    ",
+              "    return all_response_parsed;",
+              "}",
+              "",
+              "pm.test(\"Response id is same as request id.\", () => {",
+              "    pm.response.to.have.header(\"X-Bunq-Client-Request-Id\", pm.environment.get(\"request_id\"));",
+              "});",
+              "",
+              "pm.test(\"There's an api key in the response. It's set to environment variables.\", () => {",
+              "    var all_response = parse_all_response();",
+              "    var api_key = all_response.ApiKey[0].api_key;",
+              "    ",
+              "    pm.expect(api_key).to.be.a('string');",
+              "    pm.environment.set(\"api_key\", api_key);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "_postman_id": "f793c8ae-7a16-4026-bddf-06b147f041a7",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "User-Agent",
+            "value": "postman",
+            "type": "text"
+          },
+          {
+            "key": "X-Bunq-Language",
+            "value": "en_US",
+            "type": "text",
+            "disabled": true
+          },
+          {
+            "key": "X-Bunq-Region",
+            "value": "nl_NL",
+            "type": "text",
+            "disabled": true
+          },
+          {
+            "key": "X-Bunq-Client-Request-Id",
+            "value": "{{request_id}}",
+            "type": "text",
+            "disabled": true
+          },
+          {
+            "key": "X-Bunq-Geolocation",
+            "value": "{{geolocation}}",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {}
+          }
+        },
+        "url": "{{host}}/v1/sandbox-user-company",
+        "description": "**Only works on sandbox.** API key is automatically saved as a Postman environment variable when created this way.\n\nIf you are not using sandbox, please set `api_key` environment variable rather than doing this request."
+      },
+      "response": []
     }
   ],
   "event": [
