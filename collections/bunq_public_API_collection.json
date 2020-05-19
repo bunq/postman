@@ -6,12 +6,12 @@
   },
   "item": [
     {
-      "name": "Create a sandbox user",
+      "name": "Create a sandbox user (person)",
       "event": [
         {
           "listen": "prerequest",
           "script": {
-            "id": "4d54b9b8-2b7b-4640-8414-8953ca5bd7d9",
+            "id": "c5620119-1e48-4920-865d-62a9e1b4c9db",
             "exec": [
               "// Library: nanoid/non-secure",
               "",
@@ -27,7 +27,7 @@
         {
           "listen": "test",
           "script": {
-            "id": "1dca7dd9-2931-4d97-ad8c-39d7f1b77feb",
+            "id": "56deed9f-10dd-4d7b-bf27-2c15b65682d5",
             "exec": [
               "function parse_all_response() {",
               "    all_response = pm.response.json().Response;",
@@ -65,7 +65,7 @@
           }
         }
       ],
-      "_postman_id": "eb436d94-155d-4313-b323-b8bf45370e62",
+      "_postman_id": "f0d2a46e-849c-4554-a3c5-11d15204e117",
       "protocolProfileBehavior": {
         "disableBodyPruning": true
       },
@@ -86,45 +86,36 @@
           {
             "key": "X-Bunq-Language",
             "value": "en_US",
-            "type": "text"
+            "type": "text",
+            "disabled": true
           },
           {
             "key": "X-Bunq-Region",
             "value": "nl_NL",
-            "type": "text"
+            "type": "text",
+            "disabled": true
           },
           {
             "key": "X-Bunq-Client-Request-Id",
             "value": "{{request_id}}",
-            "type": "text"
+            "type": "text",
+            "disabled": true
           },
           {
             "key": "X-Bunq-Geolocation",
             "value": "{{geolocation}}",
-            "type": "text"
+            "type": "text",
+            "disabled": true
           }
         ],
         "body": {
           "mode": "raw",
-          "raw": ""
+          "raw": "",
+          "options": {
+            "raw": {}
+          }
         },
-        "url": {
-          "raw": "{{host}}/v1/sandbox-user?",
-          "host": [
-            "{{host}}"
-          ],
-          "path": [
-            "v1",
-            "sandbox-user"
-          ],
-          "query": [
-            {
-              "key": "",
-              "value": "",
-              "disabled": true
-            }
-          ]
-        },
+        "url": "{{host}}/v1/sandbox-user-person",
         "description": "**Only works on sandbox.** API key is automatically saved as a Postman environment variable when created this way.\n\nIf you are not using sandbox, please set `api_key` environment variable rather than doing this request."
       },
       "response": []
@@ -4334,121 +4325,6 @@
           "raw": ""
         },
         "url": "{{host}}/v1/user/{{user_id}}/tree-progress"
-      },
-      "response": []
-    },
-    {
-      "name": "Create a sandbox user (person)",
-      "event": [
-        {
-          "listen": "prerequest",
-          "script": {
-            "id": "c5620119-1e48-4920-865d-62a9e1b4c9db",
-            "exec": [
-              "// Library: nanoid/non-secure",
-              "",
-              "var get_id=function(r){var a=\"_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\";r=r||21;for(var n=\"\";0<r--;)n+=a[Math.random()*a.length|0];return n};",
-              "",
-              "// Custom code",
-              "",
-              "pm.environment.set(\"request_id\", get_id(20));"
-            ],
-            "type": "text/javascript"
-          }
-        },
-        {
-          "listen": "test",
-          "script": {
-            "id": "56deed9f-10dd-4d7b-bf27-2c15b65682d5",
-            "exec": [
-              "function parse_all_response() {",
-              "    all_response = pm.response.json().Response;",
-              "    all_response_parsed = {};",
-              "    ",
-              "    Array.prototype.forEach.call(all_response, function(response_body) {",
-              "        all_key = Object.keys(response_body);",
-              "        pm.expect(all_key).to.have.lengthOf(1);",
-              "        var type = all_key[0];",
-              "",
-              "        if (type in all_response_parsed) {",
-              "            // array created, adding",
-              "        } else {",
-              "            all_response_parsed[type] = [];",
-              "        }",
-              "        all_response_parsed[type].push(response_body[type]);",
-              "    });",
-              "    ",
-              "    return all_response_parsed;",
-              "}",
-              "",
-              "pm.test(\"Response id is same as request id.\", () => {",
-              "    pm.response.to.have.header(\"X-Bunq-Client-Request-Id\", pm.environment.get(\"request_id\"));",
-              "});",
-              "",
-              "pm.test(\"There's an api key in the response. It's set to environment variables.\", () => {",
-              "    var all_response = parse_all_response();",
-              "    var api_key = all_response.ApiKey[0].api_key;",
-              "    ",
-              "    pm.expect(api_key).to.be.a('string');",
-              "    pm.environment.set(\"api_key\", api_key);",
-              "});"
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "_postman_id": "f0d2a46e-849c-4554-a3c5-11d15204e117",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "name": "Content-Type",
-            "value": "application/json",
-            "type": "text"
-          },
-          {
-            "key": "User-Agent",
-            "value": "postman",
-            "type": "text"
-          },
-          {
-            "key": "X-Bunq-Language",
-            "value": "en_US",
-            "type": "text",
-            "disabled": true
-          },
-          {
-            "key": "X-Bunq-Region",
-            "value": "nl_NL",
-            "type": "text",
-            "disabled": true
-          },
-          {
-            "key": "X-Bunq-Client-Request-Id",
-            "value": "{{request_id}}",
-            "type": "text",
-            "disabled": true
-          },
-          {
-            "key": "X-Bunq-Geolocation",
-            "value": "{{geolocation}}",
-            "type": "text",
-            "disabled": true
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "",
-          "options": {
-            "raw": {}
-          }
-        },
-        "url": "{{host}}/v1/sandbox-user-person",
-        "description": "**Only works on sandbox.** API key is automatically saved as a Postman environment variable when created this way.\n\nIf you are not using sandbox, please set `api_key` environment variable rather than doing this request."
       },
       "response": []
     }
