@@ -9,7 +9,7 @@ It's a project that allows you to access bunq's public API using [Postman](https
    not use any of Postman's cloud features.
 3. Click `Import` button in top left and drag all the files from the project there
 4. In top right corner select your environment (sandbox or production).
-5. If you selected sandbox, run `Create a sandbox user` request. It will automatically save you API key to the 
+5. If you selected sandbox, run `Create a sandbox user` request. It will automatically save your API key to the 
    environment.
 6. If you selected production, edit the environment using the "eye" icon. Set "current value" of `api_key` to your API 
    key.
@@ -17,7 +17,7 @@ It's a project that allows you to access bunq's public API using [Postman](https
    using public API, including RSA keys, session and installation tokens. For you reference all those values will be set
    in the environment.
 8. Run `GET - List monetary accounts` to check that everything is working properly. If it does, you can modify that request to
-   do whatever you wanted to do and "Save as" for you future use.
+   do whatever you wanted to do and "Save as" for your future use.
 
 ### How does it work?
 
