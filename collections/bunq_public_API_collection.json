@@ -1096,7 +1096,7 @@
 									"    pm.response.to.have.header(\"X-Bunq-Client-Request-Id\", pm.environment.get(\"request_id\"));",
 									"});",
 									"",
-									"pm.test(\"Response has Id, Token and UserPerson. We are setting user_id and session_token in environment variables.\", () => {",
+									"pm.test(\"Response has Id, Token and UserPerson or UserCompany. We are setting user_id and session_token in environment variables.\", () => {",
 									"    var all_response = parse_all_response();",
 									"    pm.expect(all_response.Id).to.have.lengthOf(1);",
 									"    pm.expect(all_response.Token).to.have.lengthOf(1);",
